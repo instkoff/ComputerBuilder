@@ -32,6 +32,9 @@ namespace ComputerBuilder
                         assembly =>
                             assembly.MigrationsAssembly("ComputerBuilder.DAL.Migrations"));
             });
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IRepository, Repository>();
             services.AddTransient<IHardwareItemService, HardwareItemService>();
