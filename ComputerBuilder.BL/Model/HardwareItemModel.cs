@@ -30,5 +30,6 @@ namespace ComputerBuilder.BL.Model
         /// </summary>
         public List<CompatibilityPropertyModel> PropertyList { get; set; }
         #endregion
+
     }
 }

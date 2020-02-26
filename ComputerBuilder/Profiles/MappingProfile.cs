@@ -9,11 +9,12 @@ namespace ComputerBuilder.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<HardwareItemEntity, HardwareItemModel>();
+            CreateMap<HardwareItemEntity, HardwareItemModel>().
             // ForMember(i => i.Manufacturer, i => i.MapFrom(m => m.Manufacturer.Name)).
-            // ForMember(i => i.PropertyList, i => i.MapFrom(t => t.PropertyList));
+             ForMember(i => i.PropertyList, i => i.MapFrom(t => t.PropertyList));
             CreateMap<CompatibilityPropertyEntity, CompatibilityPropertyModel>();
 
+            CreateMap<HardwareItemModel, HardwareItemEntity>();
             CreateMap<CompatibilityPropertyModel, CompatibilityPropertyEntity>();
         }
     }
