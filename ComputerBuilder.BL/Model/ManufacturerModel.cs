@@ -5,7 +5,6 @@ namespace ComputerBuilder.BL.Model
 {
     public class ManufacturerModel
     {
-        public int Id { get; set; }
         /// <summary>
         /// Название производителя
         /// </summary>
@@ -13,7 +12,7 @@ namespace ComputerBuilder.BL.Model
         /// <summary>
         /// Список оборудования с таким производителем
         /// </summary>
-        public ICollection<HardwareItemModel> HardwareList { get; set; }
+        public List<HardwareItemModel> HardwareList { get; set; }
         /// <summary>
         /// Пустой конструктор
         /// </summary>

@@ -4,9 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ComputerBuilder.DAL.Entities
 {
-    public class ComputerBuildEntity
+    public class ComputerBuildEntity : BaseEntity
     {
-        public int Id { get; set; }
         /// <summary>
         /// Общая сумма сборки
         /// </summary>
@@ -28,7 +27,7 @@ namespace ComputerBuilder.DAL.Entities
         /// <summary>
         /// Список комплектующих
         /// </summary>
-        public ICollection<ManyBuildsToManyHwItemsEntity> BuildItems { get; set; }
+        public ICollection<ComputerBuildHardwareItem> BuildItems { get; set; }
 
         public ComputerBuildEntity() { }
         public ComputerBuildEntity(string name, string description)
@@ -42,7 +41,7 @@ namespace ComputerBuilder.DAL.Entities
             Name = name;
             Description = description;
             BuildDate = DateTime.Now;
-            BuildItems = new List<ManyBuildsToManyHwItemsEntity>();
+            BuildItems = new List<ComputerBuildHardwareItem>();
             TotalCost = 0;
         }
 

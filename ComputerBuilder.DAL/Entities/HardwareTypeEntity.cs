@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace ComputerBuilder.DAL.Entities
 {
-    public class HardwareTypeEntity
+    public class HardwareTypeEntity : BaseEntity
     {
-        public int Id { get; set; }
         /// <summary>
         /// Название типа оборудования
         /// </summary>

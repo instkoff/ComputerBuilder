@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace ComputerBuilder.DAL.Entities
 {
-    public class ManufacturerEntity
+    public class ManufacturerEntity :BaseEntity
     {
-        public int Id { get; set; }
         /// <summary>
         /// Название производителя
         /// </summary>

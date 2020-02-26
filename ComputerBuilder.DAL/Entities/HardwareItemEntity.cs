@@ -4,10 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ComputerBuilder.DAL.Entities
 {
-    public class HardwareItemEntity
+    public class HardwareItemEntity : BaseEntity
     {
         #region Свойства
-        public int Id { get; set; }
         /// <summary>
         /// Название железки
         /// </summary>
@@ -37,7 +36,7 @@ namespace ComputerBuilder.DAL.Entities
         /// </summary>
         public ICollection<CompatibilityPropertyEntity> PropertyList { get; set; }
 
-        public ICollection<ManyBuildsToManyHwItemsEntity> BuildItems { get; set; }
+        public ICollection<ComputerBuildHardwareItem> BuildItems { get; set; }
         #endregion
 
         /// <summary>
@@ -51,7 +50,7 @@ namespace ComputerBuilder.DAL.Entities
             Manufacturer = null;
             HardwareType = null;
             PropertyList = new List<CompatibilityPropertyEntity>();
-            BuildItems = new List<ManyBuildsToManyHwItemsEntity>();
+            BuildItems = new List<ComputerBuildHardwareItem>();
         }
         /// <summary>
         /// Создание новой железки

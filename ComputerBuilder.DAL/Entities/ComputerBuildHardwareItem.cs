@@ -1,6 +1,6 @@
 ﻿namespace ComputerBuilder.DAL.Entities
 {
-    public class ManyBuildsToManyHwItemsEntity
+    public class ComputerBuildHardwareItem
     {
         public int HardwareItemId { get; set; }
         public HardwareItemEntity HardwareItem { get; set; }

@@ -5,7 +5,6 @@ namespace ComputerBuilder.BL.Model
 {
     public class HardwareTypeModel
     {
-        public int Id { get; set; }
         /// <summary>
         /// Название типа оборудования
         /// </summary>
@@ -13,10 +12,11 @@ namespace ComputerBuilder.BL.Model
         /// <summary>
         /// Список оборудования с таким типом
         /// </summary>
-        public ICollection<HardwareItemModel> HardwareList { get; set; }
+        public List<HardwareItemModel> HardwareList { get; set; }
         /// <summary>
         /// Пустой конструктор
         /// </summary>
+        /// 
         public HardwareTypeModel() { }
         public HardwareTypeModel(string name)
         {

@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ComputerBuilder.DAL.Entities
 {
-    public class CompatibilityPropertyEntity
+    public class CompatibilityPropertyEntity : BaseEntity
     {
-        public int Id { get; set; }
         /// <summary>
         /// Название характеристики
         /// </summary>
@@ -20,7 +19,7 @@ namespace ComputerBuilder.DAL.Entities
         /// Железка с такими свойствами
         /// </summary>
         public int HardwareItemId { get; set; }
-        public virtual HardwareItemEntity HardwareItem { get; set; }
+        public HardwareItemEntity HardwareItem { get; set; }
         public CompatibilityPropertyEntity() { }
         public CompatibilityPropertyEntity (string propertyType, string name)
         {

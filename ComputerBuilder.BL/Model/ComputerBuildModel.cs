@@ -6,7 +6,6 @@ namespace ComputerBuilder.BL.Model
 {
     public class ComputerBuildModel
     {
-        public int Id { get; set; }
         /// <summary>
         /// Общая сумма сборки
         /// </summary>
@@ -18,7 +17,6 @@ namespace ComputerBuilder.BL.Model
         /// <summary>
         /// Название сборки
         /// </summary>
-        //[StringLength(50)]
         public string Name { get; set; }
         /// <summary>
         /// Описание сборки
@@ -27,7 +25,7 @@ namespace ComputerBuilder.BL.Model
         /// <summary>
         /// Список комплектующих
         /// </summary>
-        public ICollection<ManyBuildsToManyHwItemsEntity> BuildItems { get; set; }
+        public List<ComputerBuildHardwareItem> BuildItems { get; set; }
 
         public ComputerBuildModel() { }
         public ComputerBuildModel(string name, string description)
@@ -41,7 +39,7 @@ namespace ComputerBuilder.BL.Model
             Name = name;
             Description = description;
             BuildDate = DateTime.Now;
-            BuildItems = new List<ManyBuildsToManyHwItemsEntity>();
+            BuildItems = new List<ComputerBuildHardwareItem>();
             TotalCost = 0;
         }
 
