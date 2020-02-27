@@ -14,24 +14,19 @@ namespace ComputerBuilder.Controllers
         {
             _hardwareItemService = hardwareItemService;
         }
-        [HttpGet("get_item/")]
-        public IActionResult GetItem(int id)
+
+        [HttpGet("get_all_hw_items")]
+        public async Task<IActionResult> GetAllHwItems()
         {
-            var item = _hardwareItemService.Get(id);
-            return Ok(item);
+            return Ok(await _hardwareItemService.GetAllHwItemsFull());
         }
-        [HttpGet("get_all_items/")]
-        public IActionResult GetAllItems()
-        {
-            var items = _hardwareItemService.GetAll();
-            return Ok(items);
-        }
-        [HttpPost("add_hwitem/")]
+        [HttpPost("add_hw_item")]
         public async Task<ActionResult<int>> AddHwItem(HardwareItemModel itemModel)
         {
-            var result = await _hardwareItemService.Create(itemModel);
-            return Ok(result);//как сделать Created и нужно ли?
+            var result = await _hardwareItemService.AddHwItem(itemModel);
+            return Ok(result);
         }
+
 
     }
 }

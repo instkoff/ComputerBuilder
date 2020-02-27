@@ -1,19 +1,19 @@
-﻿using ComputerBuilder.DAL.Entities;
-using System;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace ComputerBuilder.DAL.Repositories
 {
-    public interface IRepository
+    public interface IRepository<TEntity> where TEntity : class
     {
-        IQueryable<TEntity> GetAll<TEntity>() where TEntity : class;
-        Task<int> AddAsync<TEntity>(TEntity entity) where TEntity : class, IEntity;
-        Task<TEntity> GetByIdAsync<TEntity>(int id) where TEntity : class;
-        Task UpdateAsync<TEntity>(TEntity entity) where TEntity : class;
-        Task DeleteAsync<TEntity>(int id) where TEntity : class;
-        IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class;
-
+        Task<int> AddAsync(TEntity entity);
+        Task AddRangeAsync(IEnumerable<TEntity> entities);
+        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
+        Task<IEnumerable<TEntity>> GetAllAsync();
+        ValueTask<TEntity> GetByIdAsync(int id);
+        void Remove(TEntity entity);
+        void RemoveRange(IEnumerable<TEntity> entities);
+        Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
     }
 }

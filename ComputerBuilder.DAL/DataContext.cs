@@ -9,11 +9,11 @@ namespace ComputerBuilder.DAL
         {
         }
 
-        public DbSet<CompatibilityPropertyEntity> compatibilityProperties { get; set; }
-        public DbSet<ComputerBuildEntity> computerBuilds { get; set; }
-        public DbSet<HardwareItemEntity> hardwareItems { get; set; }
-        public DbSet<HardwareTypeEntity> hardwareTypes { get; set; }
-        public DbSet<ManufacturerEntity> manufacturers { get; set; }
+        public DbSet<CompatibilityPropertyEntity> CompatibilityProperties { get; set; }
+        public DbSet<ComputerBuildEntity> ComputerBuilds { get; set; }
+        public DbSet<HardwareItemEntity> HardwareItems { get; set; }
+        public DbSet<HardwareTypeEntity> HardwareTypes { get; set; }
+        public DbSet<ManufacturerEntity> Manufacturers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

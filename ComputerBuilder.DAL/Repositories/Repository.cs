@@ -8,53 +8,54 @@ using System.Threading.Tasks;
 
 namespace ComputerBuilder.DAL.Repositories
 {
-    public class Repository : IRepository
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
-        private readonly DataContext _dbcontext;
+        protected readonly DbContext _context;
 
-        public Repository(DataContext dbcontext)
+        public Repository(DbContext context)
         {
-            _dbcontext = dbcontext;
+            _context = context;
         }
 
-        public async Task<int> AddAsync<TEntity>(TEntity entity) where TEntity : class,IEntity
+        public async Task<int> AddAsync(TEntity entity)
         {
-            await _dbcontext.Set<TEntity>().AddAsync(entity);
-            await _dbcontext.SaveChangesAsync();
+            await _context.Set<TEntity>().AddAsync(entity);
             return entity.Id;
         }
-        public async Task AddRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
+
+        public async Task AddRangeAsync(IEnumerable<TEntity> entities)
         {
-            await _dbcontext.Set<TEntity>().AddRangeAsync(entities);
-            await _dbcontext.SaveChangesAsync();
+            await _context.Set<TEntity>().AddRangeAsync(entities);
         }
 
-        public async Task DeleteAsync<TEntity>(int id) where TEntity : class
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            var entity = await _dbcontext.Set<TEntity>().FindAsync(id);
-            _dbcontext.Set<TEntity>().Remove(entity);
-            await _dbcontext.SaveChangesAsync();
+            return _context.Set<TEntity>().Where(predicate);
         }
 
-        public IQueryable<TEntity> GetAll<TEntity>() where TEntity : class
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return _dbcontext.Set<TEntity>().AsNoTracking();
+            return await _context.Set<TEntity>().ToListAsync();
         }
 
-        public async Task<TEntity> GetByIdAsync<TEntity>(int id) where TEntity : class
+        public ValueTask<TEntity> GetByIdAsync(int id)
         {
-            return await _dbcontext.Set<TEntity>().FindAsync(id);
+            return _context.Set<TEntity>().FindAsync(id);
         }
 
-        public IQueryable<TEntity> Find<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
+        public void Remove(TEntity entity)
         {
-            return _dbcontext.Set<TEntity>().Where(predicate);
+            _context.Set<TEntity>().Remove(entity);
         }
 
-        public async Task UpdateAsync<TEntity>(TEntity entity) where TEntity : class
+        public void RemoveRange(IEnumerable<TEntity> entities)
         {
-            await Task.Run(()=>_dbcontext.Set<TEntity>().Update(entity));
-            await _dbcontext.SaveChangesAsync();
+            _context.Set<TEntity>().RemoveRange(entities);
+        }
+
+        public Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _context.Set<TEntity>().SingleOrDefaultAsync(predicate);
         }
     }
 }

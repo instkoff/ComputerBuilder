@@ -11,33 +11,27 @@ namespace ComputerBuilder.BL.services
 {
     public class HardwareItemService : IHardwareItemService
     {
-        private readonly IRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public HardwareItemService(IRepository repository, IMapper mapper)
+        public HardwareItemService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        public async Task<int> Create(HardwareItemModel itemModel)
+        public async Task<int> AddHwItem(HardwareItemModel itemModel)
         {
-            var itemEntity = _mapper.Map<HardwareItemEntity>(itemModel);
-            var result = await _repository.AddAsync(itemEntity);
+            var entity = _mapper.Map<HardwareItemEntity>(itemModel);
+            var result = await _unitOfWork.HwItems.AddAsync(entity);
+            await _unitOfWork.CommitAsync();
             return result;
         }
 
-        public HardwareItemModel Get(int id)
+        public async Task<IEnumerable<HardwareItemModel>> GetAllHwItemsFull()
         {
-            var entity = _repository.Find<HardwareItemEntity>(e => e.Id == id).Include(m => m.Manufacturer).Include(h => h.HardwareType).Include(p => p.PropertyList).Single();
-            var model = _mapper.Map<HardwareItemEntity, HardwareItemModel>(entity);
-            return model;
-        }
-        public List<HardwareItemModel> GetAll()
-        {
-            var entities = _repository.GetAll<HardwareItemEntity>().Include(m=>m.Manufacturer).Include(p=>p.PropertyList).ToList(); 
-            var model = _mapper.Map<IList<HardwareItemEntity>,IList<HardwareItemModel>>(entities);
-            return model.ToList();
+            var entities = await _unitOfWork.HwItems.GetFullHwItemsAsync();
+            return _mapper.Map<IEnumerable<HardwareItemModel>>(entities);
         }
     }
 }
