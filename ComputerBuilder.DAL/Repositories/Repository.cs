@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ComputerBuilder.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,11 @@ namespace ComputerBuilder.DAL.Repositories
             _dbcontext = dbcontext;
         }
 
-        public async Task AddAsync<TEntity>(TEntity entity) where TEntity : class
+        public async Task<int> AddAsync<TEntity>(TEntity entity) where TEntity : class,IEntity
         {
             await _dbcontext.Set<TEntity>().AddAsync(entity);
             await _dbcontext.SaveChangesAsync();
+            return entity.Id;
         }
         public async Task AddRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
         {

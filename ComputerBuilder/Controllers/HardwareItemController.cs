@@ -1,6 +1,7 @@
 ﻿using ComputerBuilder.BL.Model;
 using ComputerBuilder.BL.services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ComputerBuilder.Controllers
 {
@@ -24,6 +25,12 @@ namespace ComputerBuilder.Controllers
         {
             var items = _hardwareItemService.GetAll();
             return Ok(items);
+        }
+        [HttpPost("add_hwitem/")]
+        public async Task<ActionResult<int>> AddHwItem(HardwareItemModel itemModel)
+        {
+            var result = await _hardwareItemService.Create(itemModel);
+            return Ok(result);//как сделать Created и нужно ли?
         }
 
     }

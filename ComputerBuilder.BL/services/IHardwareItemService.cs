@@ -8,5 +8,6 @@ namespace ComputerBuilder.BL.services
     {
         HardwareItemModel Get(int id);
         List<HardwareItemModel> GetAll();
+        Task<int> Create(HardwareItemModel itemModel);
     }
 }

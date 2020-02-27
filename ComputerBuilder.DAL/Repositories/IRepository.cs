@@ -9,7 +9,7 @@ namespace ComputerBuilder.DAL.Repositories
     public interface IRepository
     {
         IQueryable<TEntity> GetAll<TEntity>() where TEntity : class;
-        Task AddAsync<TEntity>(TEntity entity) where TEntity : class;
+        Task<int> AddAsync<TEntity>(TEntity entity) where TEntity : class, IEntity;
         Task<TEntity> GetByIdAsync<TEntity>(int id) where TEntity : class;
         Task UpdateAsync<TEntity>(TEntity entity) where TEntity : class;
         Task DeleteAsync<TEntity>(int id) where TEntity : class;

@@ -30,7 +30,7 @@ namespace ComputerBuilder
                 options
                     .UseNpgsql(_configuration.GetConnectionString("DefaultConnection"),
                         assembly =>
-                            assembly.MigrationsAssembly("ComputerBuilder.DAL.Migrations"));
+                            assembly.MigrationsAssembly("ComputerBuilder.DAL"));
             });
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);

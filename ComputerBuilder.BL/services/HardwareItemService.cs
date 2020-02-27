@@ -20,6 +20,13 @@ namespace ComputerBuilder.BL.services
             _mapper = mapper;
         }
 
+        public async Task<int> Create(HardwareItemModel itemModel)
+        {
+            var itemEntity = _mapper.Map<HardwareItemEntity>(itemModel);
+            var result = await _repository.AddAsync(itemEntity);
+            return result;
+        }
+
         public HardwareItemModel Get(int id)
         {
             var entity = _repository.Find<HardwareItemEntity>(e => e.Id == id).Include(m => m.Manufacturer).Include(h => h.HardwareType).Include(p => p.PropertyList).Single();
