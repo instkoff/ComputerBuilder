@@ -28,8 +28,7 @@ namespace ComputerBuilder.BL.Model
         /// <summary>
         /// Список характеристик железки
         /// </summary>
-        public IList<CompatibilityPropertyModel> PropertyList { get; set; }
+        public List<CompatibilityPropertyModel> PropertyList { get; set; }
         #endregion
-
     }
 }
