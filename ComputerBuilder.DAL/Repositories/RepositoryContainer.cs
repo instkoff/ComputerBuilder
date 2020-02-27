@@ -2,12 +2,12 @@
 
 namespace ComputerBuilder.DAL.Repositories
 {
-    public class UnitOfWork : IUnitOfWork
+    public class RepositoryContainer : IRepositoryContainer
     {
         private readonly DataContext _dataContext;
         private HardwareItemRepository _hardwareItemRepository;
 
-        public UnitOfWork(DataContext dataContext)
+        public RepositoryContainer(DataContext dataContext)
         {
             _dataContext = dataContext;
         }

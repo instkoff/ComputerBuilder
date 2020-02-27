@@ -11,10 +11,10 @@ namespace ComputerBuilder.BL.services
 {
     public class HardwareItemService : IHardwareItemService
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepositoryContainer _unitOfWork;
         private readonly IMapper _mapper;
 
-        public HardwareItemService(IUnitOfWork unitOfWork, IMapper mapper)
+        public HardwareItemService(IRepositoryContainer unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;

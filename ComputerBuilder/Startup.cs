@@ -36,7 +36,7 @@ namespace ComputerBuilder
                 .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddAutoMapper(typeof(Startup));
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IRepositoryContainer, RepositoryContainer>();
             services.AddTransient<IHardwareItemService, HardwareItemService>();
             services.AddSwaggerGen(c =>
             {
