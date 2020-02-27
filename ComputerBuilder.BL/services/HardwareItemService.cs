@@ -24,7 +24,7 @@ namespace ComputerBuilder.BL.services
         {
             var entity = _mapper.Map<HardwareItemEntity>(itemModel);
             var result = await _unitOfWork.HwItems.AddAsync(entity);
-            await _unitOfWork.CommitAsync();
+/*            result =*/ await _unitOfWork.CommitAsync();
             return result;
         }
 
