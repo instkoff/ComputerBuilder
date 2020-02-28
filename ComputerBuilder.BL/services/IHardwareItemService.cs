@@ -9,5 +9,6 @@ namespace ComputerBuilder.BL.services
     {
         Task<IEnumerable<HardwareItemModel>> GetAllHwItemsFull();
         Task<int> AddHwItem(HardwareItemModel itemModel);
+        Task<IEnumerable<HardwareItemModel>> GetFilteredItems(FilterModel filter);
     }
 }

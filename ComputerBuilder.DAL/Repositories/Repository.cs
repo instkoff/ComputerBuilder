@@ -17,10 +17,9 @@ namespace ComputerBuilder.DAL.Repositories
             _context = context;
         }
 
-        public async Task<int> AddAsync(TEntity entity)
+        public async Task AddAsync(TEntity entity)
         {
             await _context.Set<TEntity>().AddAsync(entity);
-            return entity.Id;
         }
 
         public async Task AddRangeAsync(IEnumerable<TEntity> entities)

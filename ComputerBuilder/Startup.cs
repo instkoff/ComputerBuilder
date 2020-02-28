@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
 using ComputerBuilder.BL.services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace ComputerBuilder
 {
@@ -32,12 +33,18 @@ namespace ComputerBuilder
                         assembly =>
                             assembly.MigrationsAssembly("ComputerBuilder.DAL"));
             });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IRepositoryContainer, RepositoryContainer>();
             services.AddTransient<IHardwareItemService, HardwareItemService>();
+            services.AddTransient<IUserService, UserService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Computer builder API", Version = "v1" });
@@ -59,7 +66,8 @@ namespace ComputerBuilder
             });
             app.UseRouting();
 
-            //app.UseAuthorization();
+            app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

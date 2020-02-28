@@ -1,6 +1,7 @@
 ﻿using ComputerBuilder.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ComputerBuilder.DAL.Repositories
@@ -15,9 +16,9 @@ namespace ComputerBuilder.DAL.Repositories
         {
         }
 
-        public async Task<IEnumerable<HardwareItemEntity>> GetFullHwItemsAsync()
+        public async Task<IQueryable<HardwareItemEntity>> GetFullHwItemsAsync()
         {
-            return await DataContext.HardwareItems.Include(m => m.Manufacturer).Include(h => h.HardwareType).Include(p => p.PropertyList).ToListAsync();
+            return await Task.Run(()=>DataContext.HardwareItems.Include(m => m.Manufacturer).Include(h => h.HardwareType).Include(p => p.PropertyList));
         }
     }
 }

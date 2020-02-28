@@ -14,6 +14,7 @@ namespace ComputerBuilder.DAL
         public DbSet<HardwareItemEntity> HardwareItems { get; set; }
         public DbSet<HardwareTypeEntity> HardwareTypes { get; set; }
         public DbSet<ManufacturerEntity> Manufacturers { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

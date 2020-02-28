@@ -6,7 +6,7 @@ namespace ComputerBuilder.BL.Model
     {
         /// <summary>
         /// Название характеристики
-        public string Name { get; set; }
+        public string PropertyName { get; set; }
         /// <summary>
         /// Тип характеристики
         /// </summary>

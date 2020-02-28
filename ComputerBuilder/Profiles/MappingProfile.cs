@@ -12,10 +12,12 @@ namespace ComputerBuilder.Profiles
             CreateMap<HardwareItemEntity, HardwareItemModel>();
             CreateMap<CompatibilityPropertyEntity, CompatibilityPropertyModel>();
             CreateMap<ManufacturerEntity, ManufacturerModel>();
+            CreateMap<UserEntity, UserModel>();
 
             CreateMap<HardwareItemModel, HardwareItemEntity>();
             CreateMap<CompatibilityPropertyModel, CompatibilityPropertyEntity>();
             CreateMap<ManufacturerModel, ManufacturerEntity>();
+            CreateMap<UserModel, UserEntity>();
 
             CreateMap<string, ManufacturerEntity>().ConvertUsing<StringToManufacturer>();
             CreateMap<string, HardwareTypeEntity>().ConvertUsing<StringToHardwareType>();

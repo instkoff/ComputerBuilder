@@ -9,7 +9,7 @@ namespace ComputerBuilder.DAL.Entities
         /// Название характеристики
         /// </summary>
         [StringLength(50)]
-        public string Name { get; set; }
+        public string PropertyName { get; set; }
         /// <summary>
         /// Тип характеристики
         /// </summary>
@@ -31,12 +31,12 @@ namespace ComputerBuilder.DAL.Entities
             {
                 throw new ArgumentNullException("Название типа характеристики должно быть заполнено", nameof(propertyType));
             }
-            Name = name;
+            PropertyName = name;
             PropertyType = propertyType;
         }
         public override string ToString()
         {
-            return PropertyType + " - " +Name;
+            return PropertyType + " - " +PropertyName;
         }
     }
 }
