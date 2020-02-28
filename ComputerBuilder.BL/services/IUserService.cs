@@ -5,7 +5,8 @@ namespace ComputerBuilder.BL.services
 {
     public interface IUserService
     {
-        Task<UserModel> GetUser(LoginModel model);
-        Task<int> AddUser(LoginModel model);
+        Task<UserModel> GetUserLogin(LoginModel model);
+        Task<int> AddUser(RegisterModel model);
+        Task<UserModel> GetUserRegister(RegisterModel model);
     }
 }

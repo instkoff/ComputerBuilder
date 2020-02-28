@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ComputerBuilder.BL.Model;
+using ComputerBuilder.BL.Model.Authorization;
 using ComputerBuilder.DAL.Entities;
 
 

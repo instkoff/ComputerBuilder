@@ -56,5 +56,9 @@ namespace ComputerBuilder.DAL.Repositories
         {
             return _context.Set<TEntity>().SingleOrDefaultAsync(predicate);
         }
+        public Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _context.Set<TEntity>().FirstOrDefaultAsync(predicate);
+        }
     }
 }

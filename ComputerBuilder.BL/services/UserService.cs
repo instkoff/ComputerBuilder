@@ -17,16 +17,21 @@ namespace ComputerBuilder.BL.services
             _mapper = mapper;
         }
 
-        public async Task<int> AddUser(LoginModel model)
+        public async Task<int> AddUser(RegisterModel model)
         {
             var userModel = new UserModel { Username = model.Username, PasswordHash = model.Password };
             await _repositoryContainer.Users.AddAsync(_mapper.Map<UserEntity>(userModel));
             return await _repositoryContainer.CommitAsync();
         }
 
-        public async Task<UserModel> GetUser(LoginModel model)
+        public async Task<UserModel> GetUserLogin(LoginModel model)
         {
             var userEntity = await _repositoryContainer.Users.SingleOrDefaultAsync(u => u.Username == model.Username && u.PasswordHash == model.Password);
+            return _mapper.Map<UserModel>(userEntity);
+        }
+        public async Task<UserModel> GetUserRegister(RegisterModel model)
+        {
+            var userEntity = await _repositoryContainer.Users.FirstOrDefaultAsync(u => u.Username == model.Username);
             return _mapper.Map<UserModel>(userEntity);
         }
     }

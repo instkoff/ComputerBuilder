@@ -2,9 +2,13 @@
 
 namespace ComputerBuilder.Controllers
 {
-    [Route("home")]
+    [Route("api/[controller]")]
     public class HomeController : BaseController
     {
+        public HomeController()
+        {
+
+        }
     }
     
 
