@@ -45,6 +45,8 @@ namespace ComputerBuilder
             services.AddScoped<IRepositoryContainer, RepositoryContainer>();
             services.AddTransient<IHardwareItemService, HardwareItemService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IBuildComputerService, BuildComputerService>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Computer builder API", Version = "v1" });

@@ -7,6 +7,8 @@ namespace ComputerBuilder.DAL.Repositories
     {
         HardwareItemRepository HwItems { get; }
         UserRepository Users { get; }
+        ComputerBuildRepository ComputerBuilds { get; }
         Task<int> CommitAsync();
+
     }
 }

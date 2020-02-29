@@ -7,6 +7,7 @@ namespace ComputerBuilder.DAL.Repositories
         private readonly DataContext _dataContext;
         private HardwareItemRepository _hardwareItemRepository;
         private UserRepository _userRepository;
+        private ComputerBuildRepository _computerBuildRepository;
 
         public RepositoryContainer(DataContext dataContext)
         {
@@ -15,6 +16,7 @@ namespace ComputerBuilder.DAL.Repositories
 
         public HardwareItemRepository HwItems => _hardwareItemRepository = _hardwareItemRepository ?? new HardwareItemRepository(_dataContext);
         public UserRepository Users => _userRepository = _userRepository ?? new UserRepository(_dataContext);
+        public ComputerBuildRepository ComputerBuilds => _computerBuildRepository = _computerBuildRepository ?? new ComputerBuildRepository(_dataContext);
 
         public async Task<int> CommitAsync()
         {
