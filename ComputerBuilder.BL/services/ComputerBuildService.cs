@@ -36,8 +36,8 @@ namespace ComputerBuilder.BL.services
         public async Task<IEnumerable<ComputerBuildModel>> GetAllPcAsync()
         {
            var buildsEntities = await _repositoryContainer.ComputerBuilds.GetPcBuilds();
-            var buildsModels = _mapper.Map<IEnumerable<ComputerBuildModel>>(buildsEntities);
-            return buildsModels;
+           var buildsModels = _mapper.Map<IEnumerable<ComputerBuildModel>>(buildsEntities);
+           return buildsModels;
         }
     }
 }

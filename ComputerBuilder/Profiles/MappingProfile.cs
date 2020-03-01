@@ -24,7 +24,7 @@ namespace ComputerBuilder.Profiles
 
             CreateMap<string, ManufacturerEntity>().ConvertUsing<StringToManufacturer>();
             CreateMap<string, HardwareTypeEntity>().ConvertUsing<StringToHardwareType>();
-            CreateMap<ComputerBuildHardwareItem, List<HardwareItemModel>>().ConvertUsing<ComputerBuildHardwareItemToListHwItems>();
+            CreateMap<ICollection<ComputerBuildHardwareItem>, List<HardwareItemModel>>().ConvertUsing<ComputerBuildHardwareItemToListHwItems>();
         }
 
         public class StringToManufacturer : ITypeConverter<string, ManufacturerEntity>
@@ -43,11 +43,30 @@ namespace ComputerBuilder.Profiles
                 return hardwareType;
             }
         }
-        public class ComputerBuildHardwareItemToListHwItems : ITypeConverter<ComputerBuildHardwareItem, List<HardwareItemModel>>
+        public class ComputerBuildHardwareItemToListHwItems : ITypeConverter<ICollection<ComputerBuildHardwareItem>, List<HardwareItemModel>>
         {
-            public List<HardwareItemModel> Convert(ComputerBuildHardwareItem source, List<HardwareItemModel> destination, ResolutionContext context)
+            public List<HardwareItemModel> Convert(ICollection<ComputerBuildHardwareItem> source, List<HardwareItemModel> destination, ResolutionContext context)
             {
-                destination.Add(source.HardwareItem);
+                foreach (var item in source)
+                {
+                    var hwModel = new HardwareItemModel()
+                    {
+                        Name = item.HardwareItem.Name,
+                        Cost = item.HardwareItem.Cost,
+                        Description = item.HardwareItem.Description,
+                        HardwareType = item.HardwareItem.HardwareType.Name,
+                        Manufacturer = item.HardwareItem.Manufacturer.Name,
+                    };
+                    foreach (var propEntity in item.HardwareItem.PropertyList)
+                    {
+                        var propModel = new CompatibilityPropertyModel();
+                        propModel.PropertyName = propEntity.PropertyName;
+                        propModel.PropertyType = propModel.PropertyType;
+                        hwModel.PropertyList.Add(propModel);
+                    }
+                    destination.Add(hwModel);
+                }
+                return destination;
             }
         }
     }
