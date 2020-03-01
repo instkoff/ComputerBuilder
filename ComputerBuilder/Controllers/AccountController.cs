@@ -18,8 +18,8 @@ namespace ComputerBuilder.Controllers
             _userService = userService;
         }
 
-        [HttpPost("login/")]
-        [ValidateAntiForgeryToken]
+        [HttpPost("login")]
+      //  [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel model)
         {
             if (ModelState.IsValid)
@@ -29,14 +29,14 @@ namespace ComputerBuilder.Controllers
                 {
                     await Authenticate(model.Username);
 
-                    return RedirectToAction("index","api/Home");
+                    return Ok();
                 }
                 ModelState.AddModelError("","Неверный логин или пароль");
             }
             return Ok(model);
         }
-        [HttpPost("register/")]
-        [ValidateAntiForgeryToken]
+        [HttpPost("register")]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
         {
             if(ModelState.IsValid)
@@ -47,7 +47,7 @@ namespace ComputerBuilder.Controllers
                     var result = _userService.AddUser(model);
                     await Authenticate(model.Username);
 
-                    return RedirectToAction("index", "api/Home");
+                    return Ok();
                 }
                 else
                     ModelState.AddModelError("","Неверный логин или пароль");
@@ -67,7 +67,7 @@ namespace ComputerBuilder.Controllers
             // установка аутентификационных куки
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
-        [HttpPost("logout/")]
+        [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

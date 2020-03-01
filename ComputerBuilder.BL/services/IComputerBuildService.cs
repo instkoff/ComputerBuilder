@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace ComputerBuilder.BL.services
 {
-    public interface IBuildComputerService
+    public interface IComputerBuildService
     {
         Task<int> BuildPcAsync(List<int> hardwareItemIds, string name, string description);
         Task<IEnumerable<ComputerBuildModel>> GetAllPcAsync();

@@ -38,14 +38,15 @@ namespace ComputerBuilder
                 {
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/api/Account/login");
                 });
-            services.AddControllersWithViews()
+            services.AddControllers()
                 .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IRepositoryContainer, RepositoryContainer>();
             services.AddTransient<IHardwareItemService, HardwareItemService>();
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IBuildComputerService, BuildComputerService>();
+            services.AddTransient<IComputerBuildService, ComputerBuildService>();
+
 
             services.AddSwaggerGen(c =>
             {

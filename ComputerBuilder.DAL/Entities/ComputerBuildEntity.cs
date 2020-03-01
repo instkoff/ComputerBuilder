@@ -27,9 +27,12 @@ namespace ComputerBuilder.DAL.Entities
         /// <summary>
         /// Список комплектующих
         /// </summary>
-        public List<ComputerBuildHardwareItem> BuildItems { get; set; }
+        public ICollection<ComputerBuildHardwareItem> BuildItems { get; set; }
 
-        public ComputerBuildEntity() { }
+        public ComputerBuildEntity() 
+        {
+            BuildItems = new List<ComputerBuildHardwareItem>();
+        }
         public ComputerBuildEntity(string name, string description)
         {
             #region Проверки

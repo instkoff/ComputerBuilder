@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace ComputerBuilder.BL.services
 {
-    public class BuildComputerService : IBuildComputerService
+    public class ComputerBuildService : IComputerBuildService
     {
         private readonly IRepositoryContainer _repositoryContainer;
         private readonly IMapper _mapper;
 
-        public BuildComputerService(IRepositoryContainer repositoryContainer)
+        public ComputerBuildService(IRepositoryContainer repositoryContainer, IMapper mapper)
         {
             _repositoryContainer = repositoryContainer;
+            _mapper = mapper;
         }
 
         public async Task<int> BuildPcAsync(List<int> hardwareItemIds, string name, string description)
@@ -24,7 +25,7 @@ namespace ComputerBuilder.BL.services
             foreach (var id in hardwareItemIds)
             {
                 var itemEntity = await _repositoryContainer.HwItems.GetByIdAsync(id);
-                pcBuildEntity.BuildItems.Add(new ComputerBuildHardwareItem() { ComputerBuild = pcBuildEntity, HardwareItem = itemEntity });
+                pcBuildEntity.BuildItems.Add(new ComputerBuildHardwareItem() { ComputerBuildId = pcBuildEntity.Id, HardwareItemId = itemEntity.Id });
                 pcBuildEntity.TotalCost += itemEntity.Cost;
             }
             await _repositoryContainer.ComputerBuilds.AddAsync(pcBuildEntity);

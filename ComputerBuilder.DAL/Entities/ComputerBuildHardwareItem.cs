@@ -2,6 +2,10 @@
 {
     public class ComputerBuildHardwareItem
     {
+        public ComputerBuildHardwareItem()
+        {
+
+        }
         public int HardwareItemId { get; set; }
         public HardwareItemEntity HardwareItem { get; set; }
 
