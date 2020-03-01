@@ -16,7 +16,17 @@ namespace ComputerBuilder.DAL.Repositories
         }
         public async Task<IEnumerable<ComputerBuildEntity>> GetPcBuilds()
         {
-            return await DataContext.ComputerBuilds.Include(bi => bi.BuildItems).ThenInclude(c=>c.HardwareItem).ToListAsync();
+            return await DataContext.ComputerBuilds.
+                Include(bi => bi.BuildItems).
+                ThenInclude(c=>c.HardwareItem).
+                ThenInclude(m=>m.Manufacturer).
+                Include(bi=>bi.BuildItems).
+                ThenInclude(c=>c.HardwareItem).
+                ThenInclude(h=>h.HardwareType).
+                Include(bi => bi.BuildItems).
+                ThenInclude(c => c.HardwareItem).
+                ThenInclude(p => p.PropertyList).
+                ToListAsync();
         }
     }
 }
