@@ -15,6 +15,5 @@ namespace ComputerBuilder.BL.Model
         /// <summary>
         /// Железка с такими свойствами
         /// </summary>
-        public HardwareItemModel HardwareItem { get; set; }
     }
 }

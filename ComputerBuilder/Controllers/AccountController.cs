@@ -71,7 +71,7 @@ namespace ComputerBuilder.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("login", "api/Account");
+            return Ok();
         }
     }
 }

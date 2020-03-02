@@ -23,9 +23,6 @@ namespace ComputerBuilder.DAL.Repositories
                 Include(bi=>bi.BuildItems).
                 ThenInclude(c=>c.HardwareItem).
                 ThenInclude(h=>h.HardwareType).
-                Include(bi => bi.BuildItems).
-                ThenInclude(c => c.HardwareItem).
-                ThenInclude(p => p.PropertyList).
                 ToListAsync();
         }
     }

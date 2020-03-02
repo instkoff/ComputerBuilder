@@ -15,7 +15,9 @@ namespace ComputerBuilder.Profiles
             CreateMap<CompatibilityPropertyEntity, CompatibilityPropertyModel>();
             CreateMap<ManufacturerEntity, ManufacturerModel>();
             CreateMap<UserEntity, UserModel>();
-            CreateMap<ComputerBuildEntity, ComputerBuildModel>().ForMember(c=>c.HardwareItemsList,c=>c.MapFrom(i=>i.BuildItems.Select(h=>h.HardwareItem).ToList()));
+            CreateMap<ComputerBuildEntity, ComputerBuildModel>().ForMember(c=>c.HardwareItemsList,c=>c.MapFrom(i=>i.BuildItems.
+                Select(h=>h.HardwareItem.HardwareType.Name + ": " + h.HardwareItem.Manufacturer.Name + " " + h.HardwareItem.Name + " " + $"({h.HardwareItem.Description})").
+                ToList()));
 
             CreateMap<HardwareItemModel, HardwareItemEntity>();
             CreateMap<CompatibilityPropertyModel, CompatibilityPropertyEntity>();

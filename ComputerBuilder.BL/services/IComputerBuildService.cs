@@ -6,7 +6,7 @@ namespace ComputerBuilder.BL.services
 {
     public interface IComputerBuildService
     {
-        Task<int> BuildPcAsync(List<int> hardwareItemIds, string name, string description);
+        Task<int> BuildPcAsync(ComputerInfoModel model);
         Task<IEnumerable<ComputerBuildModel>> GetAllPcAsync();
     }
 }

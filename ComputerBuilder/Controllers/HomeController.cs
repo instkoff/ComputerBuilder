@@ -16,10 +16,10 @@ namespace ComputerBuilder.Controllers
             _buildComputerService = buildComputerService;
         }
 
-        [HttpPost("index")]
-        public async Task<ActionResult<int>> Index(List<int> hardwareItemIds, string name, string description)
+        [HttpPost("build_pc")]
+        public async Task<ActionResult<int>> Index(ComputerInfoModel model)
         {
-            return await _buildComputerService.BuildPcAsync(hardwareItemIds, name, description);
+            return await _buildComputerService.BuildPcAsync(model);
         }
 
         [HttpGet("get_all_pcbuilds")]

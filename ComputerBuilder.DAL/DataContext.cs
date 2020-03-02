@@ -18,6 +18,12 @@ namespace ComputerBuilder.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ManufacturerEntity>().HasIndex(n => n.Name).IsUnique();
+            modelBuilder.Entity<ManufacturerEntity>().HasIndex(n => n.Name).IsUnique();
+            modelBuilder.Entity<HardwareItemEntity>().HasIndex(n => n.Name).IsUnique();
+
+            modelBuilder.Entity<UserEntity>().HasIndex(n => n.Username).IsUnique();
+
             modelBuilder.Entity<ComputerBuildHardwareItem>()
                 .HasKey(t => new { t.ComputerBuildId, t.HardwareItemId});
 

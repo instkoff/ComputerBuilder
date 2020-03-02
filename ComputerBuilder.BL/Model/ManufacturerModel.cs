@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ComputerBuilder.BL.Model
+﻿namespace ComputerBuilder.BL.Model
 {
     public class ManufacturerModel
     {
@@ -12,27 +9,5 @@ namespace ComputerBuilder.BL.Model
         /// <summary>
         /// Список оборудования с таким производителем
         /// </summary>
-        public List<HardwareItemModel> HardwareList { get; set; }
-        /// <summary>
-        /// Пустой конструктор
-        /// </summary>
-        public ManufacturerModel() { }
-        /// <summary>
-        /// Создать нового производителя.
-        /// </summary>
-        /// <param name="name">Название производителя</param>
-        public ManufacturerModel(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentNullException("Название не может быть пустым", nameof(name));
-            }
-            Name = name;
-            HardwareList = new List<HardwareItemModel>();
-        }
-        public override string ToString()
-        {
-            return Name;
-        }
     }
 }

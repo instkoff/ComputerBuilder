@@ -1,5 +1,4 @@
-﻿using ComputerBuilder.DAL.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace ComputerBuilder.BL.Model
@@ -25,6 +24,6 @@ namespace ComputerBuilder.BL.Model
         /// <summary>
         /// Список комплектующих
         /// </summary>
-        public List<HardwareItemModel> HardwareItemsList { get; set; }
+        public List<string> HardwareItemsList { get; set; }
     }
 }

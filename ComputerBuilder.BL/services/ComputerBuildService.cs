@@ -19,10 +19,10 @@ namespace ComputerBuilder.BL.services
             _mapper = mapper;
         }
 
-        public async Task<int> BuildPcAsync(List<int> hardwareItemIds, string name, string description)
+        public async Task<int> BuildPcAsync(ComputerInfoModel model)
         {
-            var pcBuildEntity = new ComputerBuildEntity() { Name = name, Description = description, BuildDate = DateTime.Now };
-            foreach (var id in hardwareItemIds)
+            var pcBuildEntity = new ComputerBuildEntity() { Name = model.Name, Description = model.Description, BuildDate = DateTime.Now };
+            foreach (var id in model.HardwareItemIds)
             {
                 var itemEntity = await _repositoryContainer.HwItems.GetByIdAsync(id);
                 pcBuildEntity.BuildItems.Add(new ComputerBuildHardwareItem() { ComputerBuildId = pcBuildEntity.Id, HardwareItemId = itemEntity.Id });

@@ -5,7 +5,6 @@ namespace ComputerBuilder.BL.Model
     public class HardwareItemModel
     {
         #region Свойства
-        public int Id { get; set; }
         /// <summary>
         /// Название железки
         /// </summary>

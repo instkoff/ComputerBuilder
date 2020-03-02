@@ -10,7 +10,7 @@ namespace ComputerBuilder.DAL.Entities
         /// <summary>
         /// Название железки
         /// </summary>
-        //[StringLength(50)]
+        [StringLength(80)]
         public string Name { get; set; }
         /// <summary>
         /// Цена железки
@@ -24,12 +24,10 @@ namespace ComputerBuilder.DAL.Entities
         /// <summary>
         /// Производитель
         /// </summary>
-        public int ManufacturerId { get; set; }
         public ManufacturerEntity Manufacturer { get; set; }
         /// <summary>
         /// Тип железа
         /// </summary>
-        public int HardwareTypeId { get; set; }
         public HardwareTypeEntity HardwareType { get; set; }
         /// <summary>
         /// Список характеристик железки

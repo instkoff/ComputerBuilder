@@ -3,15 +3,17 @@ using System;
 using ComputerBuilder.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ComputerBuilder.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200302074316_unique")]
+    partial class unique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,10 +104,10 @@ namespace ComputerBuilder.DAL.Migrations
                         .HasColumnType("character varying(255)")
                         .HasMaxLength(255);
 
-                    b.Property<int?>("HardwareTypeId")
+                    b.Property<int>("HardwareTypeId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("ManufacturerId")
+                    b.Property<int>("ManufacturerId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
@@ -117,9 +119,6 @@ namespace ComputerBuilder.DAL.Migrations
                     b.HasIndex("HardwareTypeId");
 
                     b.HasIndex("ManufacturerId");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("HardwareItems");
                 });
@@ -213,11 +212,15 @@ namespace ComputerBuilder.DAL.Migrations
                 {
                     b.HasOne("ComputerBuilder.DAL.Entities.HardwareTypeEntity", "HardwareType")
                         .WithMany("HardwareList")
-                        .HasForeignKey("HardwareTypeId");
+                        .HasForeignKey("HardwareTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ComputerBuilder.DAL.Entities.ManufacturerEntity", "Manufacturer")
                         .WithMany("HardwareList")
-                        .HasForeignKey("ManufacturerId");
+                        .HasForeignKey("ManufacturerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
