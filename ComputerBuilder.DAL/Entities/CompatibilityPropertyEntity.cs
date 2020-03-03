@@ -18,7 +18,6 @@ namespace ComputerBuilder.DAL.Entities
         /// <summary>
         /// Железка с такими свойствами
         /// </summary>
-        public int HardwareItemId { get; set; }
         public HardwareItemEntity HardwareItem { get; set; }
         public CompatibilityPropertyEntity() { }
         public CompatibilityPropertyEntity (string propertyType, string name)

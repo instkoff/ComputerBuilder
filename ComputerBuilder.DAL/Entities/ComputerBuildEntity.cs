@@ -17,7 +17,7 @@ namespace ComputerBuilder.DAL.Entities
         /// <summary>
         /// Название сборки
         /// </summary>
-        //[StringLength(50)]
+        [StringLength(50)]
         public string Name { get; set; }
         /// <summary>
         /// Описание сборки
