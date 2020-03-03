@@ -13,12 +13,13 @@ namespace ComputerBuilder.BL.services
         private readonly IRepositoryContainer _repositoryContainer;
         private readonly IMapper _mapper;
 
-        private async Task<HardwareItemEntity> HardwareItemEntity(HardwareItemModel itemModel)
+        private async Task<HardwareItemEntity> CheckHardwareItemEntity(HardwareItemModel itemModel)
         {
             var entity = _mapper.Map<HardwareItemEntity>(itemModel);
             var manufacturerCheck =
                 await _repositoryContainer.Manufacturers.SingleOrDefaultAsync(m =>
                     m.Name.ToLower() == itemModel.Manufacturer.ToLower());
+
             if (manufacturerCheck != null)
             {
                 entity.Manufacturer = manufacturerCheck;
@@ -35,13 +36,13 @@ namespace ComputerBuilder.BL.services
             foreach (var propertyModel in itemModel.PropertyList)
             {
                 var propertyCheck = await _repositoryContainer.CompatibilityPropertyRepository.SingleOrDefaultAsync(p =>
-                    p.PropertyName == propertyModel.PropertyName && p.PropertyType == propertyModel.PropertyType);
+                    p.PropertyName.ToLower() == propertyModel.PropertyName.ToLower() && p.PropertyType.ToLower() == propertyModel.PropertyType.ToLower());
                 if (propertyCheck != null)
                 {
                     foreach (var propertyEntity in entity.PropertiesItems)
                     {
-                        if (propertyEntity.CompatibilityProperty.PropertyName == propertyCheck.PropertyName &&
-                            propertyEntity.CompatibilityProperty.PropertyType == propertyCheck.PropertyType)
+                        if (propertyEntity.CompatibilityProperty.PropertyName.ToLower() == propertyCheck.PropertyName.ToLower() &&
+                            propertyEntity.CompatibilityProperty.PropertyType.ToLower() == propertyCheck.PropertyType.ToLower())
                         {
                             propertyEntity.CompatibilityProperty = propertyCheck;
                         }
@@ -59,7 +60,7 @@ namespace ComputerBuilder.BL.services
 
         public async Task<int> AddHwItem(HardwareItemModel itemModel)
         {
-            var entity = await HardwareItemEntity(itemModel);
+            var entity = await CheckHardwareItemEntity(itemModel);
             await _repositoryContainer.HwItems.AddAsync(entity);
             var result = await _repositoryContainer.CommitAsync();
             return result;

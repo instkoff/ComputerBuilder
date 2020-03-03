@@ -21,7 +21,6 @@ namespace ComputerBuilder.DAL
             modelBuilder.Entity<ManufacturerEntity>().HasIndex(n => n.Name).IsUnique();
             modelBuilder.Entity<HardwareTypeEntity>().HasIndex(n => n.Name).IsUnique();
             modelBuilder.Entity<HardwareItemEntity>().HasIndex(n => n.Name).IsUnique();
-            modelBuilder.Entity<CompatibilityPropertyEntity>().HasIndex(n => n.PropertyType).IsUnique();
             modelBuilder.Entity<CompatibilityPropertyEntity>().HasIndex(n => n.PropertyName).IsUnique();
             modelBuilder.Entity<UserEntity>().HasIndex(n => n.Username).IsUnique();
 
