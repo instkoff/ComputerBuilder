@@ -32,7 +32,7 @@ namespace ComputerBuilder.DAL.Entities
         /// <summary>
         /// Список характеристик железки
         /// </summary>
-        public ICollection<CompatibilityPropertyEntity> PropertyList { get; set; }
+        public ICollection<CompatibilityPropertyHardwareItem> PropertiesItems { get; set; }
 
         public ICollection<ComputerBuildHardwareItem> BuildItems { get; set; }
         #endregion
@@ -47,7 +47,7 @@ namespace ComputerBuilder.DAL.Entities
             Description = "Не определено";
             Manufacturer = null;
             HardwareType = null;
-            PropertyList = new List<CompatibilityPropertyEntity>();
+            PropertiesItems = new List<CompatibilityPropertyHardwareItem>();
             BuildItems = new List<ComputerBuildHardwareItem>();
         }
         /// <summary>
@@ -92,7 +92,7 @@ namespace ComputerBuilder.DAL.Entities
             Description = description;
             Manufacturer = manufacturer;
             HardwareType = hardwareType;
-            PropertyList = new List<CompatibilityPropertyEntity>();
+            PropertiesItems = new List<CompatibilityPropertyHardwareItem>();
         }
         public override string ToString()
         {

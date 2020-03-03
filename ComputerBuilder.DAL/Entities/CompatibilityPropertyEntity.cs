@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ComputerBuilder.DAL.Entities
@@ -18,7 +19,8 @@ namespace ComputerBuilder.DAL.Entities
         /// <summary>
         /// Железка с такими свойствами
         /// </summary>
-        public HardwareItemEntity HardwareItem { get; set; }
+        public ICollection<CompatibilityPropertyHardwareItem> PropertiesItems { get; set; }
+
         public CompatibilityPropertyEntity() { }
         public CompatibilityPropertyEntity (string propertyType, string name)
         {
@@ -32,6 +34,7 @@ namespace ComputerBuilder.DAL.Entities
             }
             PropertyName = name;
             PropertyType = propertyType;
+            PropertiesItems = new List<CompatibilityPropertyHardwareItem>();
         }
         public override string ToString()
         {

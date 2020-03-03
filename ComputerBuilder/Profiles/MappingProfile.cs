@@ -15,21 +15,40 @@ namespace ComputerBuilder.Profiles
             CreateMap<CompatibilityPropertyEntity, CompatibilityPropertyModel>();
             CreateMap<ManufacturerEntity, ManufacturerModel>();
             CreateMap<UserEntity, UserModel>();
-            CreateMap<ComputerBuildEntity, ComputerBuildModel>().ForMember(c=>c.HardwareItemsList,c=>c.MapFrom(i=>i.BuildItems.
-                Select(h=>h.HardwareItem.HardwareType.Name + ": " + h.HardwareItem.Manufacturer.Name + " " + h.HardwareItem.Name + " " + $"({h.HardwareItem.Description})").
-                ToList()));
+            CreateMap<ComputerBuildEntity, ComputerBuildModel>()
+                .ForMember(entity=>entity.HardwareItemsList,opt=>opt
+                    .MapFrom(model=>model.BuildItems
+                    .Select(item=>item.HardwareItem.HardwareType.Name + ": " + item.HardwareItem.Manufacturer.Name + " " + item.HardwareItem.Name + " " + $"({item.HardwareItem.Description})")
+                    .ToList()));
 
-            CreateMap<HardwareItemModel, HardwareItemEntity>();
+            CreateMap<HardwareItemModel, HardwareItemEntity>()
+                .ForMember(entity => entity.PropertiesItems, opt => opt
+                    .MapFrom(model => model.PropertyList))
+                .AfterMap((
+                (model, entity) =>
+                {
+                    foreach (var item in entity.PropertiesItems)
+                    {
+                        item.HardwareItem = entity;
+                    }
+                }));
+
+            CreateMap<CompatibilityPropertyModel, CompatibilityPropertyHardwareItem>()
+                .ForMember(entity => entity.CompatibilityProperty, opt => opt
+                    .MapFrom(model => model));
+
             CreateMap<CompatibilityPropertyModel, CompatibilityPropertyEntity>();
             CreateMap<ManufacturerModel, ManufacturerEntity>();
             CreateMap<UserModel, UserEntity>();
             CreateMap<ComputerBuildModel, ComputerBuildEntity>();
 
-            CreateMap<string, ManufacturerEntity>().ConvertUsing<StringToManufacturer>();
-            CreateMap<string, HardwareTypeEntity>().ConvertUsing<StringToHardwareType>();
+            CreateMap<string, ManufacturerEntity>()
+                .ConvertUsing<StringToManufacturer>();
+            CreateMap<string, HardwareTypeEntity>()
+                .ConvertUsing<StringToHardwareType>();
         }
 
-        public class StringToManufacturer : ITypeConverter<string, ManufacturerEntity>
+        private class StringToManufacturer : ITypeConverter<string, ManufacturerEntity>
         {
             public ManufacturerEntity Convert(string source, ManufacturerEntity destination, ResolutionContext context)
             {
@@ -37,7 +56,7 @@ namespace ComputerBuilder.Profiles
                 return destination;
             }
         }
-        public class StringToHardwareType : ITypeConverter<string, HardwareTypeEntity>
+        private class StringToHardwareType : ITypeConverter<string, HardwareTypeEntity>
         {
             public HardwareTypeEntity Convert(string source, HardwareTypeEntity destination, ResolutionContext context)
             {

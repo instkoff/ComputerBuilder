@@ -21,6 +21,8 @@ namespace ComputerBuilder.DAL
             modelBuilder.Entity<ManufacturerEntity>().HasIndex(n => n.Name).IsUnique();
             modelBuilder.Entity<HardwareTypeEntity>().HasIndex(n => n.Name).IsUnique();
             modelBuilder.Entity<HardwareItemEntity>().HasIndex(n => n.Name).IsUnique();
+            modelBuilder.Entity<CompatibilityPropertyEntity>().HasIndex(n => n.PropertyType).IsUnique();
+            modelBuilder.Entity<CompatibilityPropertyEntity>().HasIndex(n => n.PropertyName).IsUnique();
             modelBuilder.Entity<UserEntity>().HasIndex(n => n.Username).IsUnique();
 
             modelBuilder.Entity<ComputerBuildHardwareItem>()
@@ -35,6 +37,19 @@ namespace ComputerBuilder.DAL
                 .HasOne(bi => bi.ComputerBuild)
                 .WithMany(c => c.BuildItems)
                 .HasForeignKey(bi => bi.ComputerBuildId);
+
+            modelBuilder.Entity<CompatibilityPropertyHardwareItem>()
+                .HasKey(t => new { t.HardwareItemId, t.CompatibilityPropertyId });
+
+            modelBuilder.Entity<CompatibilityPropertyHardwareItem>()
+                .HasOne(hi => hi.HardwareItem)
+                .WithMany(pi => pi.PropertiesItems)
+                .HasForeignKey(fk=>fk.HardwareItemId);
+
+            modelBuilder.Entity<CompatibilityPropertyHardwareItem>()
+                .HasOne(cp => cp.CompatibilityProperty)
+                .WithMany(pi => pi.PropertiesItems)
+                .HasForeignKey(fk=>fk.CompatibilityPropertyId);
         }
 
 

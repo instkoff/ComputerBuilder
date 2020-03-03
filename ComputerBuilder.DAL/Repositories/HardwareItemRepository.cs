@@ -18,7 +18,7 @@ namespace ComputerBuilder.DAL.Repositories
 
         public async Task<IQueryable<HardwareItemEntity>> GetFullHwItemsAsync()
         {
-            return await Task.Run(()=>DataContext.HardwareItems.Include(m => m.Manufacturer).Include(h => h.HardwareType).Include(p => p.PropertyList));
+            return await Task.Run(()=>DataContext.HardwareItems.Include(m => m.Manufacturer).Include(h => h.HardwareType).Include(p => p.PropertiesItems));
         }
     }
 }

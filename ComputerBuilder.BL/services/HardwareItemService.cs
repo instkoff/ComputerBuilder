@@ -56,8 +56,12 @@ namespace ComputerBuilder.BL.services
             }
             if (filter.HardwarePropertiesCheck == true)
             {
-                entities = entities.Where(i => i.PropertyList.Select(p => p.PropertyType).FirstOrDefault().ToLower() == filter.HardwareProperties.PropertyType.ToLower());
-                entities = entities.Where(i => i.PropertyList.Select(p=>p.PropertyName).FirstOrDefault().ToLower() == filter.HardwareProperties.PropertyName.ToLower());
+                entities = entities.Where(i =>
+                    i.PropertiesItems.Select(p => p.CompatibilityProperty.PropertyType).FirstOrDefault().ToLower() ==
+                    filter.HardwareProperties.PropertyType.ToLower());
+                entities = entities.Where(i =>
+                    i.PropertiesItems.Select(p => p.CompatibilityProperty.PropertyName).FirstOrDefault().ToLower() ==
+                    filter.HardwareProperties.PropertyName.ToLower());
             }
             return _mapper.Map<IEnumerable<HardwareItemModel>>(entities);
         }
