@@ -10,6 +10,7 @@ namespace ComputerBuilder.DAL.Repositories
         private ComputerBuildRepository _computerBuildRepository;
         private ManufacturerRepository _manufacturerRepository;
         private HardwareTypeRepository _hardwareTypeRepository;
+        private CompatibilityPropertyRepository _compatibilityPropertyRepository;
 
         public RepositoryContainer(DataContext dataContext)
         {
@@ -21,6 +22,7 @@ namespace ComputerBuilder.DAL.Repositories
         public ComputerBuildRepository ComputerBuilds => _computerBuildRepository ??= new ComputerBuildRepository(_dataContext);
         public ManufacturerRepository Manufacturers => _manufacturerRepository ??= new ManufacturerRepository(_dataContext);
         public HardwareTypeRepository HardwareTypes => _hardwareTypeRepository ??= new HardwareTypeRepository(_dataContext);
+        public CompatibilityPropertyRepository CompatibilityPropertyRepository => _compatibilityPropertyRepository ??= new CompatibilityPropertyRepository(_dataContext);
 
         public async Task<int> CommitAsync()
         {

@@ -11,7 +11,12 @@ namespace ComputerBuilder.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<HardwareItemEntity, HardwareItemModel>();
+            CreateMap<HardwareItemEntity, HardwareItemModel>()
+                .ForMember(entity=>entity.PropertyList, opt=>opt
+                    .MapFrom(model=>model.PropertiesItems
+                        .Select(p=>p.CompatibilityProperty)
+                        .ToList()));
+
             CreateMap<CompatibilityPropertyEntity, CompatibilityPropertyModel>();
             CreateMap<ManufacturerEntity, ManufacturerModel>();
             CreateMap<UserEntity, UserModel>();

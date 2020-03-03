@@ -13,6 +13,44 @@ namespace ComputerBuilder.BL.services
         private readonly IRepositoryContainer _repositoryContainer;
         private readonly IMapper _mapper;
 
+        private async Task<HardwareItemEntity> HardwareItemEntity(HardwareItemModel itemModel)
+        {
+            var entity = _mapper.Map<HardwareItemEntity>(itemModel);
+            var manufacturerCheck =
+                await _repositoryContainer.Manufacturers.SingleOrDefaultAsync(m =>
+                    m.Name.ToLower() == itemModel.Manufacturer.ToLower());
+            if (manufacturerCheck != null)
+            {
+                entity.Manufacturer = manufacturerCheck;
+            }
+
+            var hardwareTypeCheck =
+                await _repositoryContainer.HardwareTypes.SingleOrDefaultAsync(h =>
+                    h.Name.ToLower() == itemModel.HardwareType.ToLower());
+            if (hardwareTypeCheck != null)
+            {
+                entity.HardwareType = hardwareTypeCheck;
+            }
+
+            foreach (var propertyModel in itemModel.PropertyList)
+            {
+                var propertyCheck = await _repositoryContainer.CompatibilityPropertyRepository.SingleOrDefaultAsync(p =>
+                    p.PropertyName == propertyModel.PropertyName && p.PropertyType == propertyModel.PropertyType);
+                if (propertyCheck != null)
+                {
+                    foreach (var propertyEntity in entity.PropertiesItems)
+                    {
+                        if (propertyEntity.CompatibilityProperty.PropertyName == propertyCheck.PropertyName &&
+                            propertyEntity.CompatibilityProperty.PropertyType == propertyCheck.PropertyType)
+                        {
+                            propertyEntity.CompatibilityProperty = propertyCheck;
+                        }
+                    }
+                }
+            }
+            return entity;
+        }
+
         public HardwareItemService(IRepositoryContainer repositoryContainer, IMapper mapper)
         {
             _repositoryContainer = repositoryContainer;
@@ -21,17 +59,7 @@ namespace ComputerBuilder.BL.services
 
         public async Task<int> AddHwItem(HardwareItemModel itemModel)
         {
-            var entity = _mapper.Map<HardwareItemEntity>(itemModel);
-            var manufacturerCheck = await _repositoryContainer.Manufacturers.SingleOrDefaultAsync(m => m.Name.ToLower() == itemModel.Manufacturer.ToLower());
-            if (manufacturerCheck != null)
-            {
-                entity.Manufacturer = manufacturerCheck;
-            }
-            var hardwareTypeCheck = await _repositoryContainer.HardwareTypes.SingleOrDefaultAsync(h => h.Name.ToLower() == itemModel.HardwareType.ToLower());
-            if (hardwareTypeCheck != null)
-            {
-                entity.HardwareType = hardwareTypeCheck;
-            }
+            var entity = await HardwareItemEntity(itemModel);
             await _repositoryContainer.HwItems.AddAsync(entity);
             var result = await _repositoryContainer.CommitAsync();
             return result;
@@ -65,5 +93,6 @@ namespace ComputerBuilder.BL.services
             }
             return _mapper.Map<IEnumerable<HardwareItemModel>>(entities);
         }
+
     }
 }

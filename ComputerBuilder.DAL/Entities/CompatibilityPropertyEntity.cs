@@ -7,17 +7,16 @@ namespace ComputerBuilder.DAL.Entities
     public class CompatibilityPropertyEntity : BaseEntity
     {
         /// <summary>
+        /// Тип характеристики
+        /// </summary>
+        public string PropertyType { get; set; }
+        /// <summary>
         /// Название характеристики
         /// </summary>
         [StringLength(50)]
         public string PropertyName { get; set; }
         /// <summary>
-        /// Тип характеристики
-        /// </summary>
-        //[StringLength(50)]
-        public string PropertyType { get; set; }
-        /// <summary>
-        /// Железка с такими свойствами
+        /// Железки с такими свойствами
         /// </summary>
         public ICollection<CompatibilityPropertyHardwareItem> PropertiesItems { get; set; }
 

@@ -10,6 +10,7 @@ namespace ComputerBuilder.DAL.Repositories
         ComputerBuildRepository ComputerBuilds { get; }
         ManufacturerRepository Manufacturers { get; }
         HardwareTypeRepository HardwareTypes { get; }
+        CompatibilityPropertyRepository CompatibilityPropertyRepository { get; }
         Task<int> CommitAsync();
 
     }
