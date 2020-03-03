@@ -33,16 +33,16 @@ namespace ComputerBuilder.Profiles
         {
             public ManufacturerEntity Convert(string source, ManufacturerEntity destination, ResolutionContext context)
             {
-                var manufacturer = new ManufacturerEntity(source);
-                return manufacturer;
+                destination = new ManufacturerEntity(source);
+                return destination;
             }
         }
         public class StringToHardwareType : ITypeConverter<string, HardwareTypeEntity>
         {
             public HardwareTypeEntity Convert(string source, HardwareTypeEntity destination, ResolutionContext context)
             {
-                var hardwareType = new HardwareTypeEntity(source);
-                return hardwareType;
+                destination = new HardwareTypeEntity(source);
+                return destination;
             }
         }
     }
