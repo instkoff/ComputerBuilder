@@ -81,19 +81,23 @@ namespace ComputerBuilder.BL.services
         public async Task<HardwareItemModel> UpdateHwItemAsync(int id, HardwareItemModel itemModel)
         {
 
-            //ToDo Доработать
+            var entity = await CheckHardwareItemEntityAsync(itemModel);
             var itemEntityToUpdate = await _repositoryContainer.HwItems.GetFullHwItemByIdAsync(id);
 
             if (itemEntityToUpdate == null)
                 return null;
 
-            itemEntityToUpdate.Name = itemModel.Name;
-            itemEntityToUpdate.Cost = itemModel.Cost;
-            itemEntityToUpdate.Description = itemModel.Description;
-
+            itemEntityToUpdate.Name = entity.Name;
+            itemEntityToUpdate.Cost = entity.Cost;
+            itemEntityToUpdate.Description = entity.Description;
+            itemEntityToUpdate.Manufacturer = entity.Manufacturer;
+            itemEntityToUpdate.HardwareType = entity.HardwareType;
+            itemEntityToUpdate.PropertiesItems.Clear();
+            itemEntityToUpdate.PropertiesItems = entity.PropertiesItems;
             await _repositoryContainer.CommitAsync();
 
-            var updatedItem = _mapper.Map<HardwareItemModel>(itemEntityToUpdate);
+            var updatedEntity = await _repositoryContainer.HwItems.GetFullHwItemByIdAsync(id);
+            var updatedItem = _mapper.Map<HardwareItemModel>(updatedEntity);
             return updatedItem;
         }
 
