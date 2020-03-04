@@ -13,12 +13,13 @@ namespace ComputerBuilder.BL.services
         private readonly IRepositoryContainer _repositoryContainer;
         private readonly IMapper _mapper;
 
-        private async Task<HardwareItemEntity> CheckHardwareItemEntity(HardwareItemModel itemModel)
+        private async Task<HardwareItemEntity> CheckHardwareItemEntityAsync(HardwareItemModel itemModel)
         {
             var entity = _mapper.Map<HardwareItemEntity>(itemModel);
+
             var manufacturerCheck =
-                await _repositoryContainer.Manufacturers.SingleOrDefaultAsync(m =>
-                    m.Name.ToLower() == itemModel.Manufacturer.ToLower());
+                await _repositoryContainer.Manufacturers
+                    .SingleOrDefaultAsync(m => m.Name.ToLower() == itemModel.Manufacturer.ToLower());
 
             if (manufacturerCheck != null)
             {
@@ -28,6 +29,7 @@ namespace ComputerBuilder.BL.services
             var hardwareTypeCheck =
                 await _repositoryContainer.HardwareTypes.SingleOrDefaultAsync(h =>
                     h.Name.ToLower() == itemModel.HardwareType.ToLower());
+
             if (hardwareTypeCheck != null)
             {
                 entity.HardwareType = hardwareTypeCheck;
@@ -58,12 +60,50 @@ namespace ComputerBuilder.BL.services
             _mapper = mapper;
         }
 
-        public async Task<int> AddHwItem(HardwareItemModel itemModel)
+        public async Task<int> RemoveHwItem(int id)
         {
-            var entity = await CheckHardwareItemEntity(itemModel);
-            await _repositoryContainer.HwItems.AddAsync(entity);
+            var entity = await _repositoryContainer.HwItems.GetByIdAsync(id);
+            if (entity == null)
+                return 0;
+            _repositoryContainer.HwItems.Remove(entity);
             var result = await _repositoryContainer.CommitAsync();
             return result;
+        }
+
+        public async Task<int> AddHwItem(HardwareItemModel itemModel)
+        {
+            var entity = await CheckHardwareItemEntityAsync(itemModel);
+            await _repositoryContainer.HwItems.AddAsync(entity);
+            await _repositoryContainer.CommitAsync();
+            return entity.Id;
+        }
+
+        public async Task<HardwareItemModel> UpdateHwItemAsync(int id, HardwareItemModel itemModel)
+        {
+
+            //ToDo Доработать
+            var itemEntityToUpdate = await _repositoryContainer.HwItems.GetFullHwItemByIdAsync(id);
+
+            if (itemEntityToUpdate == null)
+                return null;
+
+            itemEntityToUpdate.Name = itemModel.Name;
+            itemEntityToUpdate.Cost = itemModel.Cost;
+            itemEntityToUpdate.Description = itemModel.Description;
+
+            await _repositoryContainer.CommitAsync();
+
+            var updatedItem = _mapper.Map<HardwareItemModel>(itemEntityToUpdate);
+            return updatedItem;
+        }
+
+        public async Task<HardwareItemModel> GetHwItemByIdAsync(int id)
+        {
+            var itemEntity = await _repositoryContainer.HwItems.GetFullHwItemByIdAsync(id);
+            if (itemEntity == null)
+                return null;
+            var itemModel = _mapper.Map<HardwareItemModel>(itemEntity);
+            return itemModel;
         }
 
         public async Task<IEnumerable<HardwareItemModel>> GetAllHwItemsFull()

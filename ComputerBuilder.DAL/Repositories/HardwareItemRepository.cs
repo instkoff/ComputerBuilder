@@ -23,5 +23,15 @@ namespace ComputerBuilder.DAL.Repositories
                 .Include(pi => pi.PropertiesItems)
                 .ThenInclude(p=>p.CompatibilityProperty));
         }
+
+        public async Task<HardwareItemEntity> GetFullHwItemByIdAsync(int id)
+        {
+            return await DataContext.HardwareItems
+                .Include(m => m.Manufacturer)
+                .Include(h => h.HardwareType)
+                .Include(pi => pi.PropertiesItems)
+                .ThenInclude(p => p.CompatibilityProperty)
+                .SingleOrDefaultAsync(item => item.Id == id);
+        }
     }
 }

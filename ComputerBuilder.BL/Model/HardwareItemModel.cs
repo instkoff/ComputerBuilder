@@ -6,6 +6,10 @@ namespace ComputerBuilder.BL.Model
     {
         #region Свойства
         /// <summary>
+        /// Id железки
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
         /// Название железки
         /// </summary>
         public string Name { get; set; }

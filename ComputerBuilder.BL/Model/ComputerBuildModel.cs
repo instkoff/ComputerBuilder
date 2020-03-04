@@ -6,6 +6,10 @@ namespace ComputerBuilder.BL.Model
     public class ComputerBuildModel
     {
         /// <summary>
+        /// Id сборки
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
         /// Название сборки
         /// </summary>
         public string Name { get; set; }

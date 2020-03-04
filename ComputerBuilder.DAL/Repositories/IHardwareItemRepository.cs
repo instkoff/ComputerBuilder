@@ -8,5 +8,6 @@ namespace ComputerBuilder.DAL.Repositories
     public interface IHardwareItemRepository : IRepository<HardwareItemEntity>
     {
         Task<IQueryable<HardwareItemEntity>> GetFullHwItemsAsync();
+        Task<HardwareItemEntity> GetFullHwItemByIdAsync(int id);
     }
 }

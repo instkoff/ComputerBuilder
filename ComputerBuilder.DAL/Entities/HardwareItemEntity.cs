@@ -98,5 +98,6 @@ namespace ComputerBuilder.DAL.Entities
         {
             return Name;
         }
+        
     }
 }
